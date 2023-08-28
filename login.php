@@ -131,3 +131,20 @@
   </main>
 </body>
 </html>
+
+>>>>>>>>>>>>>>>>>>
+
+I found the bug in the following line of code:
+
+PHP
+$sql = 'SELECT id, username, password FROM users WHERE username = ?';
+
+The $username variable is not escaped before it is used in the SQL query. This means that an attacker could inject malicious code into the query, which could lead to a security vulnerability.
+
+To fix this bug, we need to escape the $username variable before using it in the SQL query. We can do this by using the mysqli_real_escape_string() function. The following code shows the corrected version of the sql variable:
+
+PHP
+$sql = 'SELECT id, username, password FROM users WHERE username = ?';
+$username = mysqli_real_escape_string($mysql_db, $username);
+
+This code will escape any special characters in the $username variable before it is used in the SQL query. This will help to prevent SQL injection attacks.
